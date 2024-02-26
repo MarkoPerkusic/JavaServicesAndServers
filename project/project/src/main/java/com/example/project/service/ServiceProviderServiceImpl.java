@@ -33,4 +33,15 @@ public class ServiceProviderServiceImpl implements ServiceProviderService{
     public void deleteServiceProvider(Long id) {
         serviceProviderRepository.deleteById(id);
     }
+
+    @Override
+    public ServiceProvider updateServiceProvider(Long id, ServiceProvider updatedProvider) {
+        ServiceProvider existingProvider = serviceProviderRepository.findById(id).orElse(null);
+        if (existingProvider != null) {
+            existingProvider.setName(updatedProvider.getName());
+            // Dodajte ažuriranje ostalih polja prema potrebi
+            return serviceProviderRepository.save(existingProvider);
+        }
+        return null;
+    }
 }
